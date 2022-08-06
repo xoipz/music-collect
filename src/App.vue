@@ -1,11 +1,15 @@
 <template>
   <div id="App">
-    <div class="row">
+    <div class="A-row">
       <Aside></Aside>
-      <div class="col">
+      <div class="A-col">
         <Header></Header>
+        <div class="A-row">
         <Main></Main>
+        <RightSide></RightSide>
+        </div>
       </div>
+      
     </div>
     <Footer></Footer>
   </div>
@@ -16,8 +20,10 @@ import Aside from "~/layout/Aside.vue";
 import Header from "~/layout/Header.vue";
 import Main from "~/layout/Main.vue";
 import Footer from "~/layout/Footer.vue";
+import RightSide from "~/layout/RightSide.vue";
 
 import { ref, reactive, onMounted, computed } from "vue";
+
 </script>
 
 <style lang="scss" scoped>
@@ -30,12 +36,13 @@ import { ref, reactive, onMounted, computed } from "vue";
   min-height: 600px;
 }
 
-.row {
+.A-row {
   display: flex;
+  flex-direction: row;
   flex: 1;
 }
 
-.col {
+.A-col {
   display: flex;
   flex-direction: column;
   flex: 1;

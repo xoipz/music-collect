@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import { createPinia } from 'pinia';
-
+import directives from "./directives/index";
 
 // import "~/styles/element/index.scss";
 
@@ -20,4 +20,4 @@ import "element-plus/theme-chalk/src/message.scss"
 const app = createApp(App);
 // app.use(ElementPlus);
 
-app.use(router).use(createPinia()).mount("#app");
+app.use(router).use(createPinia()).use(directives).mount("#app");
