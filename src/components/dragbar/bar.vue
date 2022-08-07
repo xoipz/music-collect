@@ -68,7 +68,7 @@ const binding = () => {
   
   // 鼠标按下
   bar.value.onmousedown = (e: any) => {
-    emits("updateinfo")
+    emits("updateView")
     /*
      *e.pageX :鼠标的绝对x
      *bar.value.offsetLeft :元素左边的绝对x
@@ -95,7 +95,7 @@ const binding = () => {
 
     document.onmouseup = () => {
       // console.log("up");
-      emits("updateinfo");
+      emits("updateView");
       document.onmousemove = document.onmouseup = null;
     };
   };
@@ -119,7 +119,7 @@ const change = () => {
 };
 
 // 注册方法
-const emits = defineEmits(["changewidth", "changeheight", "updateinfo"]);
+const emits = defineEmits(["changewidth", "changeheight", "updateView"]);
 </script>
 
 <style lang="scss" scoped>
@@ -129,7 +129,6 @@ const emits = defineEmits(["changewidth", "changeheight", "updateinfo"]);
   align-items: center;
   justify-content: center;
   transition: all 0s;
-
   background: var(--color-3);
   &:hover {
     .movebar {

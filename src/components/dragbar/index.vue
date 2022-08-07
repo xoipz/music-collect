@@ -150,8 +150,8 @@ const init = () => {
 const updateView = () => {
   state.basedata = {
       ...state.basedata,
-      boxwidth: dragbar.value.clientWidth,
-      boxheight: dragbar.value.clientHeight,
+      boxwidth: colbox.value.offsetWidth,
+      boxheight: colbox.value.offsetHeight,
     };
 
   let bol = false;
@@ -164,6 +164,7 @@ const updateView = () => {
 
   if (bol) {
     setTimeout(() => {
+      console.log("updateView")
       changewidth(state.basedata.boxwidth);
       changeheight(state.basedata.boxheight);
       // console.log(dragbar.value.clientWidth, dragbar.value.clientHeight);
@@ -176,7 +177,7 @@ const changewidth = (num: number) => {
   let min = state.limit.minX;
   let max = state.limit.maxX;
   if (min <= num && num <= max) {
-    // console.log("changewidth", num);
+    console.log("changewidth", num);
     state.boxstyle.width = num + "px";
   } else if (num <= min) {
     state.boxstyle.width = min + "px";
