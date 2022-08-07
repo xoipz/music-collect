@@ -3,7 +3,7 @@
     <bar
       id="leftbar"
       :basedata="state.basedata"
-      @updateinfo="updateinfo()"
+      @updateView="updateView()"
       @changewidth="changewidth"
       dir="left"
       v-if="state.dir[3]"
@@ -14,7 +14,7 @@
       <bar
         id="topbar"
         :basedata="state.basedata"
-        @updateinfo="updateinfo()"
+        @updateView="updateView()"
         @changeheight="changeheight"
         dir="top"
         v-if="state.dir[0]"
@@ -25,7 +25,7 @@
       <bar
         id="bottombar"
         :basedata="state.basedata"
-        @updateinfo="updateinfo()"
+        @updateView="updateView()"
         @changeheight="changeheight"
         dir="bottom"
         v-if="state.dir[2]"
@@ -36,7 +36,7 @@
     <bar
       id="rightbar"
       :basedata="state.basedata"
-      @updateinfo="updateinfo()"
+      @updateView="updateView()"
       @changewidth="changewidth"
       dir="right"
       v-if="state.dir[1]"
@@ -48,7 +48,6 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from "vue";
 import bar from "./bar.vue";
-import { provide } from "vue"
 
 const dragbar = ref();
 const colbox = ref();
@@ -70,23 +69,38 @@ const props = defineProps({
     type: [String, Number],
     default: -1,
   },
-}); // 对象形式声明 props
+  maxX: {
+    type: [Number, String],
+    default: -1,
+  },
+  maxY: {
+    type: [Number, String],
+    default: -1,
+  },
+  minX: {
+    type: [Number, String],
+    default: -1,
+  },
+  minY: {
+    type: [Number, String],
+    default: -1,
+  },
+});
 
 const state = reactive({
-  basedata: {
+  basedata: {//转入给bar的数值，要有延迟
     boxwidth: 0,
     boxheight: 0,
   },
-  width: -1,
-  height: -1,
+  limit: { max: false, maxX: -1, maxY: -1, minX: 0, minY: 0 },
   dir: [false, false, false, false],
+  // 实时的样式
   boxstyle: {
     width: "-1",
     height: "-1",
     padding: ["0px", "0px", "0px", "0px"],
   },
 });
-
 
 onMounted(() => {
   init();
@@ -104,7 +118,6 @@ const init = () => {
 
   // 获取需要改变的方向，并开启拖框
   const dir = props.dir as dir;
-
   if (typeof dir == "string") {
     state.dir[dirs[dir]] = true;
     state.boxstyle.padding[dirs[dir]] = "8px";
@@ -116,48 +129,104 @@ const init = () => {
   }
 
   // 获取盒子长宽
-  state.width = Number(props.width);
-  state.height = Number(props.height);
-  if (state.width !== -1) state.boxstyle.width = state.width + "px";
-  if (state.height !== -1) state.boxstyle.height = state.height + "px";
+  let width = Number(props.width);
+  let height = Number(props.height);
+  if (width !== -1) changewidth(width);
+  if (height !== -1) changeheight(height);
 
+  //获取限制条件
+  state.limit.maxX = Number(props.maxX);
+  state.limit.maxY = Number(props.maxY);
+  state.limit.minX = Number(props.minX);
+  state.limit.minY = Number(props.minY);
+  state.limit.max = !(state.limit.maxX == -1 && state.limit.maxY == -1);
+
+// 设置延时避免破坏布局
   setTimeout(() => {
-    updateinfo()
-    // console.log(state.basedata,colbox.value.clientWidth,colbox.value.clientHeight)
-  }, 10);
-
+    updateView();
+  }, 200);
 };
 
-const updateinfo=()=>{
+const updateView = () => {
   state.basedata = {
-      boxwidth: colbox.value.clientWidth,
-      boxheight: colbox.value.clientHeight,
+      ...state.basedata,
+      boxwidth: dragbar.value.clientWidth,
+      boxheight: dragbar.value.clientHeight,
     };
-}
+
+  let bol = false;
+  if (state.dir[0] == true || state.dir[2] == true) {
+    bol = Number(state.boxstyle.height.replace("px", "")) > 8;
+  }
+  if (state.dir[1] == true || (state.dir[3] == true && bol == false)) {
+    bol = Number(state.boxstyle.width.replace("px", "")) > 8;
+  }
+
+  if (bol) {
+    setTimeout(() => {
+      changewidth(state.basedata.boxwidth);
+      changeheight(state.basedata.boxheight);
+      // console.log(dragbar.value.clientWidth, dragbar.value.clientHeight);
+    }, 10);
+  }
+};
 
 const changewidth = (num: number) => {
-  // console.log("changewidth",num)
-  state.boxstyle.width = num + "px";
+  record();
+  let min = state.limit.minX;
+  let max = state.limit.maxX;
+  if (min <= num && num <= max) {
+    // console.log("changewidth", num);
+    state.boxstyle.width = num + "px";
+  } else if (num <= min) {
+    state.boxstyle.width = min + "px";
+  } else if (max <= num) {
+    state.boxstyle.width = max + "px";
+  }
 };
-
 const changeheight = (num: number) => {
-  // console.log("changeheight",num)
-  state.boxstyle.height = num + "px";
+  record();
+  let min = state.limit.minY;
+  let max = state.limit.maxY;
+  if (min <= num && num <= max) {
+    // console.log("changeheight", num);
+    state.boxstyle.height = num + "px";
+  } else if (num <= min) {
+    state.boxstyle.height = min + "px";
+  } else if (max <= num) {
+    state.boxstyle.height = max + "px";
+  }
+};
+// 记录限制值(如果没有限制值)
+const record = () => {
+  if (!state.limit.max) {
+    state.limit.maxX = document.body.clientWidth;
+    state.limit.maxY = document.body.clientHeight;
+  }
+  // console.log(
+  //   state.limit.minX,
+  //   state.limit.maxX,
+  //   state.limit.minY,
+  //   state.limit.maxY
+  // );
 };
 
+// const 
+
+
+
+// 转化为样式的对象
 const stylerule = () => {
+  // console.log(state.boxstyle)
   type style = "width" | "height" | "padding";
   let style: Record<string, any> = { padding: "" };
   Object.keys(state.boxstyle).map((key) => {
-    if (
-      state.boxstyle[key as style] !== "-1" &&
-      typeof state.boxstyle[key as style] == "string"
-    )
-      style[key] = state.boxstyle[key as style];
+    let value = state.boxstyle[key as style];
+    // console.log(value)
+    if (value !== "-1" && typeof value == "string") style[key] = value;
   });
-
-  state.boxstyle.padding.forEach((mar: string) => {
-    style.padding += mar + " ";
+  state.boxstyle.padding.forEach((pad: string) => {
+    style.padding += pad + " ";
   });
   // console.log(style)
   return style;

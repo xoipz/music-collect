@@ -2,9 +2,9 @@
   <div id="A-Main">
     
     <div style="flex: 1;">main</div>
-    <dragbar dir="top" >
+    <!-- <dragbar dir="top" >
   <div >main2</div>
-  </dragbar>
+  </dragbar> -->
     <!-- <div class="ces" v-draggable>ces</div> -->
 
     </div>

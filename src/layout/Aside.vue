@@ -1,5 +1,5 @@
 <template>
-  <dragbar :dir="['right']" width="200">
+  <dragbar :dir="['right']" width="200"  max-x="600">
     <div id="A-Aside">Aside</div>
   </dragbar>
 </template>
