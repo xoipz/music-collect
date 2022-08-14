@@ -1,5 +1,11 @@
 <template>
-  <div class="bar" ref="bar">
+  <div
+    ref="bar"
+    :class="isdeep()?'deepbar':'bar'"
+    
+    @mousedown="down"
+    @click="clickbar()"
+  >
     <div class="movebar"></div>
     <div class="movebar"></div>
     <div class="movebar"></div>
@@ -7,9 +13,14 @@
 </template>
 
 <script lang="ts" setup>
+import { ElMessage } from "element-plus/es";
 import { onMounted, reactive, ref, watch } from "vue";
 
 const bar = ref();
+
+const ces = () => {
+  ElMessage({ type: "error", message: "ces" });
+};
 
 //获取props
 const props = defineProps({
@@ -27,8 +38,10 @@ const state = reactive({
   dir: "null", //方向
   num: 0, //bar相对盒子的距离
   renum: 0,
-  boxwidth: 0, //盒子的宽度
-  boxheight: 0, //盒子的高度
+  boxstyle: {
+    width: 0, //盒子的宽度
+    height: 0, //盒子的高度
+  },
 
   max: false, //是否设置限制条件
   min: false,
@@ -40,23 +53,27 @@ const state = reactive({
 
 onMounted(() => {
   init();
-  binding();
+  // binding();
 });
 
 watch(
   () => props.basedata,
   (newData) => {
-    console.log(newData)
-    state.boxwidth = newData.boxwidth;
-    state.boxheight = newData.boxheight;
+    state.boxstyle.width = newData.boxwidth;
+    state.boxstyle.height = newData.boxheight;
   }
 );
+
+
+const isdeep = () =>{
+  return isrow()?state.boxstyle.width<=8:state.boxstyle.height<=8
+}
 
 const init = () => {
   //获取props
   state.dir = props.dir;
-  state.boxwidth = props.basedata.boxwidth;
-  state.boxheight = props.basedata.boxheight;
+  state.boxstyle.width = props.basedata.boxwidth;
+  state.boxstyle.height = props.basedata.boxheight;
   // console.log(JSON.parse(JSON.stringify(state)));
 };
 
@@ -64,11 +81,65 @@ const isrow = () => {
   return state.dir == "left" || state.dir == "right";
 };
 
+/*
+ *e.pageX :鼠标的绝对x
+ *bar.value.offsetLeft :元素左边的绝对x
+ *document.body.clientWidth :页面绝对width
+ */
+const down = (e: any) => {
+  // 鼠标按下
+  emits("updateView");
+
+  // 记录鼠标与元素绝对点的距离
+  const dis = isrow()
+    ? e.pageX - bar.value.offsetLeft
+    : e.pageY - bar.value.offsetTop;
+
+  const left = e.pageX;
+  // console.log(e.pageX);
+
+  // 鼠标移动
+  document.onmousemove = (e) => move(e, dis, left);
+  document.onmouseup = () => up();
+
+  // console.log()
+  // document.ontouchmove = (e) => ces()
+  // document.ontouchend = () => ces()
+};
+
+const move = (e: any, dis: number, left: number) => {
+  // 正向变化（下、右）
+  if (state.dir == "bottom" || state.dir == "right")
+    state.num = (isrow() ? e.pageX : e.pageY) - dis; // 移动数值
+
+  //反向变化（上、左）
+  if (state.dir == "top") state.renum = e.pageY - dis; // 移动数值
+
+  if (state.dir == "left") state.renum = e.pageX - left; // 移动数值
+
+  // clientWidth - left
+
+  // console.log(state.renum, e.pageX, left, bar.value.offsetLeft);
+  //左需要单独计算
+
+  change();
+};
+
+const up = () => {
+  // console.log("up");
+  emits("updateView");
+
+  // 按钮
+  document.onmousemove = document.onmouseup = null;
+  document.ontouchmove = document.ontouchend = null;
+};
+
 const binding = () => {
-  
+  // console.log(bar.value.touchstart)
   // 鼠标按下
   bar.value.onmousedown = (e: any) => {
-    emits("updateView")
+    // console.log("onmousedown");
+    emits("updateView");
     /*
      *e.pageX :鼠标的绝对x
      *bar.value.offsetLeft :元素左边的绝对x
@@ -104,18 +175,22 @@ const binding = () => {
 const change = () => {
   switch (state.dir) {
     case "top":
-      emits("changeheight", state.boxheight - state.renum);
+      emits("changeheight", state.boxstyle.height - state.renum);
       break;
     case "right":
-      emits("changewidth", state.num);
+      emits("changewidth", state.num + 8);
       break;
     case "bottom":
-      emits("changeheight", state.num);
+      emits("changeheight", state.num + 8);
       break;
     case "left":
-      emits("changewidth", state.boxwidth - state.renum);
+      emits("changewidth", state.boxstyle.width - state.renum);
       break;
   }
+};
+
+const clickbar = () => {
+  // console.log("clickbar");
 };
 
 // 注册方法
@@ -128,8 +203,9 @@ const emits = defineEmits(["changewidth", "changeheight", "updateView"]);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0s;
-  background: var(--color-3);
+  transition: background 0.2s;
+  // transition: all 0s;
+  // background: var(--color-3);
   &:hover {
     .movebar {
       background: var(--color-4);
@@ -137,6 +213,26 @@ const emits = defineEmits(["changewidth", "changeheight", "updateView"]);
     background: var(--color-1);
   }
 }
+
+.deepbar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  background: var(--color-3);
+  .movebar {
+    background: var(--color-0);
+  }
+  &:hover {
+    .movebar {
+      background: var(--color-4);
+    }
+    background: var(--color-1);
+  }
+  
+}
+
 .movebar {
   width: 4px;
   height: 2px;

@@ -33,7 +33,7 @@ import { ref, reactive, onMounted, computed } from "vue";
   width: 100vw;
   height: 100vh;
   min-width: 800px;
-  min-height: 600px;
+  min-height: 500px;
 }
 
 .A-row {
@@ -59,7 +59,7 @@ import { ref, reactive, onMounted, computed } from "vue";
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  transition: all 0.2s;
+  transition: background 0.2s;
 }
 
 // 滑动条
