@@ -8,6 +8,7 @@ declare module '@vue/runtime-core' {
     Bar: typeof import('./components/dragbar/bar.vue')['default']
     Dragbar: typeof import('./components/dragbar/index.vue')['default']
     ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Tem: typeof import('./components/tem.vue')['default']

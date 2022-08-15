@@ -2,9 +2,6 @@
   <div id="A-Main">
     <div style="flex: 1"></div>
 
-    <dragbar dir="left" >
-  <div >main2</div>
-  </dragbar>
     <!-- <div class="ces" v-draggable>ces</div> -->
   </div>
 </template>
@@ -17,7 +14,7 @@ onMounted(() => {});
 <style lang="scss" scoped>
 #A-Main {
   display: flex;
-  background-color: var(--color-4);
+  // background-color: var(--color-4);
   flex: 1;
   position: relative;
 }

@@ -1,8 +1,7 @@
 <template>
   <div
     ref="bar"
-    :class="isdeep()?'deepbar':'bar'"
-    
+    :class="isdeep() ? 'deepbar' : 'bar'"
     @mousedown="down"
     @click="clickbar()"
   >
@@ -64,10 +63,9 @@ watch(
   }
 );
 
-
-const isdeep = () =>{
-  return isrow()?state.boxstyle.width<=8:state.boxstyle.height<=8
-}
+const isdeep = () => {
+  return isrow() ? state.boxstyle.width <= 8 : state.boxstyle.height <= 8;
+};
 
 const init = () => {
   //获取props
@@ -230,7 +228,6 @@ const emits = defineEmits(["changewidth", "changeheight", "updateView"]);
     }
     background: var(--color-1);
   }
-  
 }
 
 .movebar {

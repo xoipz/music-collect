@@ -34,12 +34,14 @@ import { ref, reactive, onMounted, computed } from "vue";
   height: 100vh;
   min-width: 800px;
   min-height: 500px;
+  overflow: hidden;
 }
 
 .A-row {
   display: flex;
   flex-direction: row;
   flex: 1;
+  overflow: hidden;
 }
 
 .A-col {

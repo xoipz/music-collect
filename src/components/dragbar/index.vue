@@ -46,7 +46,6 @@
 </template>
 
 <script lang="ts" setup>
-// 右bar有问题，关于盒子宽度限制
 import { onMounted, reactive, ref, toRef } from "vue";
 import bar from "./bar.vue";
 const dragbar = ref();
@@ -160,12 +159,10 @@ const updateView = () => {
   const height = Number(state.boxstyle.height.replace("px", ""));
   state.basedata = {
     ...state.basedata,
-    boxwidth: width<=-1?colbox.value.offsetWidth:width,
+    boxwidth: width <= -1 ? colbox.value.offsetWidth : width,
     boxheight: colbox.value.offsetHeight,
     boxleft: dragbar.value.offsetLeft,
   };
-
-  
 
   const direction = getdirection();
   if (direction == 1 || direction == 3) {
@@ -203,7 +200,7 @@ const getdirection = () => {
 const changewidth = (num: number) => {
   record();
   let min = state.limit.minX;
-  console.log(min)
+  // console.log(min)
   let max = state.limit.maxX;
   if (min <= num && num <= max) {
     // console.log("changewidth", num);
@@ -259,10 +256,17 @@ const stylerule = () => {
   return style;
 };
 
+const getwidth=()=>{
+  if(width)
+    return Number(width.value.replace("px", ""))
+  return -1
+}
+
 // 暴露方法，变量
 defineExpose({
   width,
   height,
+  getwidth,
 });
 </script>
 
@@ -270,9 +274,9 @@ defineExpose({
 .row {
   position: relative;
   display: flex;
-  transition: width 0s;
-  transition: height 0s;
+  transition: all 0s;
   overflow: hidden;
+  // border: var(--color-4) solid 10px;
 
   .colbar {
     width: 8px;
