@@ -3,7 +3,6 @@ import App from "./App.vue";
 import router from "./router";
 import { createPinia } from 'pinia';
 import directives from "./directives/index";
-
 // import "~/styles/element/index.scss";
 
 // import ElementPlus from "element-plus";

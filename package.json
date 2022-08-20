@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "vite",
-    "host":"vite --host",
+    "host": "vite --host",
     "build": "vite build",
     "generate": "vite-ssg build",
     "preview": "vite preview",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.4",
+    "@types/jsonfile": "^6.1.0",
     "@vueuse/core": "^9.1.0",
     "axios": "^0.27.2",
     "element-plus": "^2.1.9",

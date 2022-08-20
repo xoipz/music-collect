@@ -1,19 +1,27 @@
 <template>
-  <dragbar ref="drag" :dir="['right']" width="200" min-x="70" max-x="200">
+  <dragbar ref="drag" :dir="['right']" width="200" min-x="60" max-x="200">
     <div id="A-Aside">
-      <div class="logo">Music Coll</div>
-      <div class="item">
-        <el-icon class="icon"><Setting /></el-icon>
-        <div v-if="drag?.getwidth() > 70" class="text">设置</div>
+      <div class="logo notsel">
+        <div v-if="drag?.getwidth() > 90">Music Collect</div>
+        <img
+          class="img"
+          v-if="drag?.getwidth() <= 90"
+          src="./../assets/image/music.svg"
+        />
       </div>
 
-      <div class="item">
-        <el-icon class="icon"><Setting /></el-icon>
-        <div v-if="drag?.getwidth() > 70" class="text">设置</div>
+      <div class="item notsel" @click="routerTo('Home')">
+        <img class="icon" src="./../assets/image/home.svg" />
+        <div v-if="drag?.getwidth() > 90" class="text">主页</div>
       </div>
 
-      <div v-if="drag?.getwidth() > 70">-歌单-</div>
-      <el-scrollbar v-if="drag?.getwidth() > 70" class="sheets">
+      <div class="item notsel" @click="routerTo('Setting')">
+        <img class="icon" src="./../assets/image/setting.svg" />
+        <div v-if="drag?.getwidth() > 90" class="text">设置</div>
+      </div>
+
+      <div class="notsel" v-if="drag?.getwidth() > 90">-歌单-</div>
+      <el-scrollbar v-if="drag?.getwidth() > 90" class="sheets">
         <div class="sheet" v-for="item in 10">123</div>
       </el-scrollbar>
     </div>
@@ -21,8 +29,9 @@
 </template>
 
 <script lang="ts" setup>
-import { Setting } from "@element-plus/icons-vue";
 import { onMounted, ref, watch } from "vue";
+import { useRouters } from "~/hooks/useRouters";
+const { routerTo } = useRouters();
 const drag = ref();
 </script>
 
@@ -34,7 +43,6 @@ const drag = ref();
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  
 
   .logo {
     width: 100%;
@@ -48,20 +56,24 @@ const drag = ref();
     font-size: 24px;
     font-weight: bold;
     text-align: center;
+    margin-bottom: 2px;
+  }
+
+  .img {
+    height: 60%;
   }
 
   .item {
     width: 90%;
     height: 50px;
     background: var(--color-2);
-    margin: 4px 0;
+    margin: 2px 0;
     padding: 0 4px;
     border-radius: 4px;
     line-height: 50px;
     display: flex;
     align-items: center;
     cursor: pointer;
-    
 
     &:hover {
       background: var(--color-0);
@@ -69,9 +81,11 @@ const drag = ref();
     }
     .icon {
       margin: auto;
+      height: 28px;
     }
 
     .text {
+      margin-left: 10px;
       flex: 1;
     }
   }

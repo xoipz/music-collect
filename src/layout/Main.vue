@@ -1,8 +1,8 @@
 <template>
   <div id="A-Main">
-    <div style="flex: 1"></div>
-
-    <!-- <div class="ces" v-draggable>ces</div> -->
+    <el-scrollbar class="M-scrollbar">
+      <router-view></router-view>
+    </el-scrollbar>
   </div>
 </template>
 
@@ -24,5 +24,10 @@ onMounted(() => {});
   height: 100px;
   background: var(--color-2);
   transition: all 0s;
+}
+
+.M-scrollbar {
+  padding: 10px;
+  flex: 1;
 }
 </style>

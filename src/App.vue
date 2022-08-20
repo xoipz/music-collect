@@ -5,11 +5,10 @@
       <div class="A-col">
         <Header></Header>
         <div class="A-row">
-        <Main></Main>
-        <RightSide></RightSide>
+          <Main></Main>
+          <RightSide></RightSide>
         </div>
       </div>
-      
     </div>
     <Footer></Footer>
   </div>
@@ -23,7 +22,6 @@ import Footer from "~/layout/Footer.vue";
 import RightSide from "~/layout/RightSide.vue";
 
 import { ref, reactive, onMounted, computed } from "vue";
-
 </script>
 
 <style lang="scss" scoped>
@@ -51,17 +49,19 @@ import { ref, reactive, onMounted, computed } from "vue";
 }
 </style>
 
-
 <!-- 全局布局 -->
 <style lang="scss">
 * {
+  transition: background 0.2s;
+}
+
+.notsel {
   -moz-user-select: none;
   -o-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  transition: background 0.2s;
 }
 
 // 滑动条
@@ -76,7 +76,6 @@ body {
     border-radius: 2px;
   }
 }
-
 
 body {
   // // 主题色
