@@ -1,7 +1,7 @@
 <template>
   <dragbar ref="drag" :dir="['right']" width="200" min-x="60" max-x="200">
     <div id="A-Aside">
-      <div class="logo notsel">
+      <div class="logo">
         <div v-if="drag?.getwidth() > 90">Music Collect</div>
         <img
           class="img"
@@ -10,19 +10,19 @@
         />
       </div>
 
-      <div class="item notsel" @click="routerTo('Home')">
+      <div class="item" @click="routerTo('Home')">
         <img class="icon" src="./../assets/image/home.svg" />
         <div v-if="drag?.getwidth() > 90" class="text">主页</div>
       </div>
 
-      <div class="item notsel" @click="routerTo('Setting')">
+      <div class="item " @click="routerTo('Setting')">
         <img class="icon" src="./../assets/image/setting.svg" />
         <div v-if="drag?.getwidth() > 90" class="text">设置</div>
       </div>
 
-      <div class="notsel" v-if="drag?.getwidth() > 90">-歌单-</div>
+      <div class="" v-if="drag?.getwidth() > 90">-歌单-</div>
       <el-scrollbar v-if="drag?.getwidth() > 90" class="sheets">
-        <div class="sheet" v-for="item in 10">123</div>
+        <div class="sheet" v-for="(item,index) in 10">{{index}}</div>
       </el-scrollbar>
     </div>
   </dragbar>

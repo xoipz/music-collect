@@ -53,9 +53,6 @@ import { ref, reactive, onMounted, computed } from "vue";
 <style lang="scss">
 * {
   transition: background 0.2s;
-}
-
-.notsel {
   -moz-user-select: none;
   -o-user-select: none;
   -khtml-user-select: none;

@@ -1,5 +1,5 @@
 <template>
-  <dragbar :dir="['top']" height="80" max-y="100">
+  <dragbar :dir="['top']" height="80" min-y="60" max-y="150">
     <div id="A-Footer" >Footer</div>
   </dragbar>
 </template>
