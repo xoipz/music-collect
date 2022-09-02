@@ -5,12 +5,16 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Asideitem: typeof import('./components/muc-compents/aside/asideitem.vue')['default']
     Bar: typeof import('./components/dragbar/bar.vue')['default']
     Dragbar: typeof import('./components/dragbar/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Sheet: typeof import('./components/sheet/index.vue')['default']
+    Sheets: typeof import('./components/muc-compents/aside/sheets.vue')['default']
     Tem: typeof import('./components/tem.vue')['default']
   }
 }

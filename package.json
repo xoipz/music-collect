@@ -12,8 +12,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.4",
-    "@types/jsonfile": "^6.1.0",
-    "@vueuse/core": "^9.1.0",
+    "@vueuse/core": "^9.1.1",
     "axios": "^0.27.2",
     "element-plus": "^2.1.9",
     "pinia": "^2.0.0-rc.10",

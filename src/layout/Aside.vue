@@ -6,33 +6,51 @@
         <img
           class="img"
           v-if="drag?.getwidth() <= 90"
-          src="./../assets/image/music.svg"
+          src="src/assets/image/music.svg"
         />
       </div>
 
-      <div class="item" @click="routerTo('Home')">
-        <img class="icon" src="./../assets/image/home.svg" />
-        <div v-if="drag?.getwidth() > 90" class="text">主页</div>
-      </div>
+      <asideitem
+        src="src/assets/image/home.svg"
+        name="主页"
+        view="Home"
+        :width="drag?.getwidth()"
+      ></asideitem>
 
-      <div class="item " @click="routerTo('Setting')">
-        <img class="icon" src="./../assets/image/setting.svg" />
-        <div v-if="drag?.getwidth() > 90" class="text">设置</div>
-      </div>
+      <asideitem
+        src="src/assets/image/setting.svg"
+        name="设置"
+        view="Setting"
+        :width="drag?.getwidth()"
+      ></asideitem>
 
+      <!-- TODO 封装成单独的组件 -->
       <div class="" v-if="drag?.getwidth() > 90">-歌单-</div>
       <el-scrollbar v-if="drag?.getwidth() > 90" class="sheets">
-        <div class="sheet" v-for="(item,index) in 10">{{index}}</div>
+        <div class="sheet" v-for="(item, index) in 10">{{ index }}</div>
+        <div class="sheet" @click="addsheet()">add</div>
+        <!-- <el-button @click="ces()"></el-button> -->
       </el-scrollbar>
+      <!-- TODO 封装成单独的组件 -->
     </div>
+
+    <el-dialog title="添加歌单" v-model="state.dialog.show">123</el-dialog>
   </dragbar>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, watch } from "vue";
-import { useRouters } from "~/hooks/useRouters";
-const { routerTo } = useRouters();
+import { computed, onMounted, reactive, ref, watch } from "vue";
 const drag = ref();
+
+const state = reactive({
+  dialog: {
+    show: false,
+  },
+});
+
+const addsheet = () => {
+  state.dialog.show = true;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -57,37 +75,15 @@ const drag = ref();
     font-weight: bold;
     text-align: center;
     margin-bottom: 2px;
-  }
-
-  .img {
-    height: 60%;
-  }
-
-  .item {
-    width: 90%;
-    height: 50px;
-    background: var(--color-2);
-    margin: 2px 0;
-    padding: 0 4px;
-    border-radius: 4px;
-    line-height: 50px;
-    display: flex;
-    align-items: center;
     cursor: pointer;
 
     &:hover {
       background: var(--color-0);
-      color: var(--font-theme);
     }
-    .icon {
-      margin: auto;
-      height: 28px;
-    }
+  }
 
-    .text {
-      margin-left: 10px;
-      flex: 1;
-    }
+  .img {
+    height: 60%;
   }
 }
 

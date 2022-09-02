@@ -33,6 +33,7 @@ import { ref, reactive, onMounted, computed } from "vue";
   min-width: 800px;
   min-height: 500px;
   overflow: hidden;
+  background: var(--bg);
 }
 
 .A-row {
@@ -75,36 +76,39 @@ body {
 }
 
 body {
-  // // 主题色
+  // 背景色
+  --bg: #fff;
+
+  // 字体色
   --font-theme: #fff;
   --font-theme-grey: #959494;
   --font-retheme: #000;
-  --color-0: #36aeff;
+
+  // 主题色
+  --color--1: #49b5fd;
+  --color-0: #6ac3ff;
   --color-1: #62c0ff;
   --color-2: #98d4fb;
   --color-3: #b7e2ff;
   --color-4: #cde9fb;
-  --aside-bg: #e9f7ff;
-
-  --page-0: #fff;
-  --page-1: rgba(255, 255, 255, 0.84);
-  --page-2: rgba(255, 255, 255, 0.7);
-  --box-bg-1: rgba(255, 255, 255, 0.94);
-  --box-bg-2: rgba(255, 255, 255, 0.7);
-
-  //暗色
-  // --font-theme: #fff;
-  // --font-retheme: #000;
-  // --color-0: #000000;
-  // --color-1: #2d2d2d;
-  // --color-2: #454545;
-  // --color-3: #c8c8c8;
-  // --color-4: #ffffff;
-
-  // --page-0: rgb(0, 0, 0);
-  // --page-1: rgba(53, 53, 53, 0.84);
-  // --page-2: rgba(170, 170, 170, 0.7);
-  // --box-bg-1: rgba(12, 12, 12, 0.94);
-  // --box-bg-2: rgba(88, 88, 88, 0.7);
 }
+
+// body{
+//   //背景色
+//   --bg:#3d3d3d;
+
+//   // // 字体色
+//   --font-theme: #000;
+//   --font-theme-grey: #959494;
+//   --font-retheme: #fff;
+
+//   //主题色
+//   --color--1: #000000;
+//   --color-0: #505050;
+//   --color-1: #727272;
+//   --color-2: #969696;
+//   --color-3: #e1e1e1;
+//   --color-4: #ffffff;
+
+// }
 </style>
