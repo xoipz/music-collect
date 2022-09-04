@@ -18,6 +18,11 @@ const router = createRouter({
       component: () => import("../view/Setting/Setting.vue"),
     },
     {
+      path: "/Sheet",
+      name: "Sheet",
+      component: () => import("../view/Sheet/Sheet.vue"),
+    },
+    {
       path: "/file",
       name: "file",
       component: () => import("../view/Test/file.vue"),

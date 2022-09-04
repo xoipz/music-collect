@@ -3,7 +3,11 @@
     <!-- v-if="drag?.getwidth() > 90" -->
     <div class="title">-歌单-</div>
     <el-scrollbar class="sheets" v-loading="state.scrollbar.loading">
-      <div class="sheet" v-for="(item, index) in state.sheetdata">
+      <div
+        class="sheet"
+        v-for="(item, index) in state.sheetdata"
+        @click="routerTo('Sheet', item)"
+      >
         <div class="text">
           {{ item.sheetname }}
         </div>
@@ -39,6 +43,8 @@ import { reactive, onMounted } from "vue";
 import { addsheet, getsheet } from "~/api/api";
 import { Elapi } from "~/hooks/useapiresult";
 import { useUserStore } from "~/store/modules/user";
+import { useRouters } from "~/hooks/useRouters";
+const { routerTo } = useRouters();
 
 const store = { User: useUserStore() };
 onMounted(() => {
@@ -85,6 +91,16 @@ const add = () => {
     .finally(() => {
       state.dialog.loading = false;
       state.dialog.show = false;
+
+      state.form = {
+        type: "sheet",
+        sheetname: "",
+        describe: "",
+        sheetimg: "",
+        songs: [],
+        creater: store.User.getUsername,
+        authorid: [],
+      };
     });
 };
 

@@ -15,6 +15,7 @@ export const useRouters = () => {
   };
 
   const routeGet = () => {
+    console.log("a",JSON.parse(decodeURI(route.query.data as string)))
     return JSON.parse(decodeURI(route.query.data as string)) ;
   };
 

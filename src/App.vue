@@ -69,6 +69,15 @@ onMounted(() => {
   user-select: none;
 }
 
+.sel{
+  -moz-user-select:text;
+  -o-user-select: text;
+  -khtml-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
 // 滑动条
 body {
   &::-webkit-scrollbar {

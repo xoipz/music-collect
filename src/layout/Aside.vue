@@ -1,6 +1,7 @@
 <template>
   <dragbar ref="drag" :dir="['right']" width="200" min-x="60" max-x="200">
     <div id="A-Aside">
+      <!-- logo -->
       <div class="logo">
         <div v-if="drag?.getwidth() > 90">Music Collect</div>
         <img
@@ -10,6 +11,7 @@
         />
       </div>
 
+      <!-- 路由 -->
       <asideitem
         src="src/assets/image/home.svg"
         name="主页"
@@ -24,6 +26,8 @@
         :width="drag?.getwidth()"
       ></asideitem>
 
+      
+      <!-- 我的歌单 -->
       <sheets></sheets>
     </div>
   </dragbar>
