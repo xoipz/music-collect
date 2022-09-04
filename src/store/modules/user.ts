@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
-export const useAppStore = defineStore({
+export const useUserStore = defineStore<any,any>({
 
-  // 开启数据持久化
-  persist: false,
+  // // 开启数据持久化
+  // persist: false,
   id: "user",
   state: () => ({
-    name: "",
+    name: "user",
     id: -1
   }),
   

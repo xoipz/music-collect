@@ -24,33 +24,25 @@
         :width="drag?.getwidth()"
       ></asideitem>
 
-      <!-- TODO 封装成单独的组件 -->
-      <div class="" v-if="drag?.getwidth() > 90">-歌单-</div>
-      <el-scrollbar v-if="drag?.getwidth() > 90" class="sheets">
-        <div class="sheet" v-for="(item, index) in 10">{{ index }}</div>
-        <div class="sheet" @click="addsheet()">add</div>
-        <!-- <el-button @click="ces()"></el-button> -->
-      </el-scrollbar>
-      <!-- TODO 封装成单独的组件 -->
+      <sheets></sheets>
     </div>
 
-    <el-dialog title="添加歌单" v-model="state.dialog.show">123</el-dialog>
+    
   </dragbar>
 </template>
 
 <script lang="ts" setup>
+
 import { computed, onMounted, reactive, ref, watch } from "vue";
+
+import { useUserStore } from "~/store/modules/user";
 const drag = ref();
 
-const state = reactive({
-  dialog: {
-    show: false,
-  },
-});
+const store = { User: useUserStore() };
 
-const addsheet = () => {
-  state.dialog.show = true;
-};
+
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -87,24 +79,4 @@ const addsheet = () => {
   }
 }
 
-.sheets {
-  width: 100%;
-  flex: 1;
-  padding: 10px 0 0 0;
-  display: flex;
-  flex-direction: column;
-  background: var(--color-2);
-
-  .sheet {
-    height: 80px;
-    width: 90%;
-    margin: auto;
-    background: #fff;
-    overflow: hidden;
-    padding: 4px;
-    border-radius: 4px;
-    margin: 10px auto;
-    cursor: pointer;
-  }
-}
 </style>

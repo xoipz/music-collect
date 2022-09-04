@@ -22,6 +22,13 @@ import Footer from "~/layout/Footer.vue";
 import RightSide from "~/layout/RightSide.vue";
 
 import { ref, reactive, onMounted, computed } from "vue";
+import { test } from "~/api/api";
+
+onMounted(() => {
+  test().then((res: any) => {
+    console.log(res);
+  });
+});
 </script>
 
 <style lang="scss" scoped>
