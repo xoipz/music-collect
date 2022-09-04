@@ -292,6 +292,7 @@ defineExpose({
   display: flex;
   flex: 1;
   flex-direction: column;
+  overflow: hidden;
 
   .rowbar {
     height: 8px;

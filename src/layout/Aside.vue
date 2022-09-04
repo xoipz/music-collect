@@ -26,21 +26,13 @@
 
       <sheets></sheets>
     </div>
-
-    
   </dragbar>
 </template>
 
 <script lang="ts" setup>
-
 import { computed, onMounted, reactive, ref, watch } from "vue";
 
-import { useUserStore } from "~/store/modules/user";
 const drag = ref();
-
-const store = { User: useUserStore() };
-
-
 
 
 </script>
@@ -78,5 +70,4 @@ const store = { User: useUserStore() };
     height: 60%;
   }
 }
-
 </style>
