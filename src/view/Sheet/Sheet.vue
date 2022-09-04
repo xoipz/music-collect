@@ -1,13 +1,19 @@
 <template>
   <div id="Sheet" class="sel">
-    <h1>Sheet</h1>
-    {{ state.sheetdata }}
+    <div class="header"></div>
+    <h1>sheetname:{{state.sheetdata.sheetname}}</h1>
+    <h3>describe:{{state.sheetdata.describe}}</h3>
+    id:{{ state.sheetdata.id }}
+  </div>
+  <div class="body">
+    <Songlist></Songlist>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, onUpdated } from "vue";
+import { onMounted, reactive, onBeforeUpdate } from "vue";
 import { useRouters } from "~/hooks/useRouters";
+import Songlist from "./components/songlist.vue";
 const { routeGet } = useRouters();
 
 const state = reactive({
@@ -15,6 +21,7 @@ const state = reactive({
     type: "",
     sheetname: "",
     sheetimg: "",
+    describe:"",
     creater: "",
     authorid: [],
     id: "",
@@ -23,17 +30,23 @@ const state = reactive({
 
 onMounted(() => {
   state.sheetdata = { ...routeGet() };
-  console.log(routeGet());
 });
 
-onUpdated(() => {
+onBeforeUpdate(() => {
   state.sheetdata = { ...routeGet() };
-  console.log(routeGet());
 });
 </script>
 
 <style lang="scss" scoped>
 #Sheet {
-  // height: 1000px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  .header{
+    display: flex;
+  }
+  .body{
+
+  }
 }
 </style>
