@@ -45,8 +45,8 @@ import { Elapi } from "~/hooks/useapiresult";
 import { useUserStore } from "~/store/modules/user";
 import { useRouters } from "~/hooks/useRouters";
 const { routerTo } = useRouters();
-
 const store = { User: useUserStore() };
+
 onMounted(() => {
   search();
 });
@@ -137,6 +137,7 @@ const search = (id?: string) => {
   flex-direction: column;
   background: var(--color-2);
   overflow: hidden;
+  margin-bottom: 2px;
 
   .sheet {
     height: 80px;

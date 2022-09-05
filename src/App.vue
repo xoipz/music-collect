@@ -70,13 +70,23 @@ onMounted(() => {
   user-select: none;
 }
 
-.sel{
-  -moz-user-select:text;
+.sel {
+  -moz-user-select: text;
   -o-user-select: text;
   -khtml-user-select: text;
   -webkit-user-select: text;
   -ms-user-select: text;
   user-select: text;
+}
+
+.__menu__wrapper {
+  transition: background 0s;
+  transition: color 0.3s;
+  border-radius: 2px;
+}
+
+.__menu__item {
+  border-radius: 2px;
 }
 
 // 滑动条
